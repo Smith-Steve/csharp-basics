@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Linq;
+using HelloWorld.Models;
 
 namespace HelloWorld
 {
@@ -9,19 +10,18 @@ namespace HelloWorld
     {
         public static void Main(string[] args)
         {
-            int[] intsToCompress = new int[]{10, 15,20,25,30,35,40};
+            Computer myComputer = new Computer()
+            {
+                Motherboard = "ZG90",
+                HasWifi = true,
+                HasLTE = true,
+                ReleaseDate = DateTime.Now,
+                Price = 94.87m,
+                VideoCard = "RTX260"
+            };
 
-            
-            int totalValue = intsToCompress[];
-            DateTime startTime = DateTime.Now;
-            //For loops.
-            int totalValue = 0;
+            Console.Write(myComputer.Motherboard);
 
-            foreach(int intForCompression in intsToCompress)
-             {
-                totalValue += intForCompression;
-             }
-             Console.WriteLine(totalValue);
         }
     }
 }
