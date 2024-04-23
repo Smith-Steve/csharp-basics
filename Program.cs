@@ -31,8 +31,30 @@ namespace HelloWorld
                 VideoCard = "RTX260"
             };
 
-            Console.Write(myComputer.Motherboard);
-
-        }
+string sqlInsert = @$"INSERT INTO TutorialAppSchema.Computer (
+	Motherboard,
+	CPUCores,
+	VideoCard,
+	HasWifi,
+	HasLTE,
+	ReleaseDate,
+	Price
+) VALUES (
+	'{myComputer.Motherboard}',
+	'{myComputer.CPUCores}',
+	'{myComputer.VideoCard}',
+	'{myComputer.HasWifi}',
+	'{myComputer.HasLTE}',
+	'{myComputer.ReleaseDate:yyyy-MM-dd}',
+	'{myComputer.Price}')";
+        int result = dbConnection.Execute(sqlInsert);}
+    
+    string sqlSelect = @"SELECT 	Motherboard,
+	CPUCores,
+	VideoCard,
+	HasWifi,
+	HasLTE,
+	ReleaseDate,
+	Price FROM TutorialAppSchema.Computer";
     }
 }
