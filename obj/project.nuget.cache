@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "BbgD9xk5fPbpfytaMCSO1noY3mNmAdv+Tc5qzEzPn+nO63cUZqu2CmPg8Ny0pnBIs4cvtyLXCAyVshd7CvJxYQ==",
+  "dgSpecHash": "Ujh7mdsOa0R58ucOXWkA0SObyokKFH9BIz1iM3v1PY/ENBGn5V6hGLDqTS1C4JqpDiUcq7+o9uqj1iyHd93htQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\Steph\\csharp-tuts\\dotnet-course-code\\HelloWorld\\HelloWorld.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Steph\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
     "C:\\Users\\Steph\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\Steph\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
     "C:\\Users\\Steph\\.nuget\\packages\\dapper\\2.1.35\\dapper.2.1.35.nupkg.sha512",
