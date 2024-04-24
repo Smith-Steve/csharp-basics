@@ -5,8 +5,12 @@ using HelloWorld.Models;
 namespace HelloWorld.Data
 {   public class DataContextEF : DbContext
     {
-        private string _connectionString = "Server=localhost;Database=DotNetCourseDatabase;TrustServerCertificate=true;Trusted_Connection=true;";
-        //inheritance.
+        private IConfiguration _config;
+        public DataContextEF(IConfiguration config)
+        {
+            // _config = config;
+            _config = config;
+        }
         //You can take everything one class has, and use another class to inherit things from it.
         public DbSet<Computer>? Computer { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -18,7 +22,7 @@ namespace HelloWorld.Data
             {
                 //We're checking to see if it has already been configured or not. This variable tells us
                 //whether or not we've already called it.
-                optionsBuilder.UseSqlServer(_connectionString,
+                optionsBuilder.UseSqlServer(_config.GetConnectionString("DefaultConnection"),
                     optionsBuilder => optionsBuilder.EnableRetryOnFailure());
             }
         }

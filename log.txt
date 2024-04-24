@@ -1,0 +1,16 @@
+INSERT INTO TutorialAppSchema.Computer (
+                Motherboard,
+                CPUCores,
+                VideoCard,
+                HasWifi,
+                HasLTE,
+                ReleaseDate,
+                Price
+            ) VALUES (
+                'ZG90',
+                '0',
+                'RTX260',
+                'True',
+                'True',
+                '2024-04-23',
+                '94.87')

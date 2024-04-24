@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Linq;
+using System.Text.Json;
 using HelloWorld.Models;
-using System.Data;
-using Microsoft.Data.SqlClient;
-using Dapper;
-using System.Data.Common;
 using HelloWorld.Data;
+using Microsoft.Extensions.Configuration;
 
 namespace HelloWorld
 {
@@ -15,8 +13,10 @@ namespace HelloWorld
     {
         public static void Main(string[] args)
         {
-            DataContextDapper dapper = new DataContextDapper();
-            DataContextEF entityFramework = new DataContextEF();
+            IConfiguration configuration = new ConfigurationBuilder()
+                .AddJsonFile("appSettings.json")
+                .Build();
+            DataContextDapper dapper = new DataContextDapper(configuration);
 
 
             string sqlCommand = "SELECT GETDATE()";
@@ -33,9 +33,6 @@ namespace HelloWorld
                 Price = 94.87m,
                 VideoCard = "RTX260"
             };
-
-            entityFramework.Add(myComputer);
-            entityFramework.SaveChanges();
 
             string sql = @$"INSERT INTO TutorialAppSchema.Computer (
                 Motherboard,
@@ -64,33 +61,29 @@ namespace HelloWorld
                 Computer.HasLTE,
                 Computer.ReleaseDate,
                 Price FROM TutorialAppSchema.Computer";
+                //Write to file.
+                // File.WriteAllText("log.txt", sql);
 
-                IEnumerable<Computer> computers = dapper.LoadData<Computer>(sqlSelect);
-                int recordNo = 1;
-                foreach (var computer in computers)
-                {
-                    Console.WriteLine("'" + computer.Motherboard +
-                        "','" + computer.HasWifi +
-                        "','" + computer.HasLTE +
-                        "','" + computer.ReleaseDate +
-                        "','" + computer.Price +
-                        "','" + computer.VideoCard);
-                }
+                // using StreamWriter openFile = new("log.txt", append: true);
+                // openFile.Write("\n" + sql + "\n");
+                // openFile.Close();
 
-                IEnumerable<Computer>? computersEf = entityFramework.Computer?.ToList<Computer>();
-                if (computersEf != null)
-                Console.WriteLine("Computer from Entity Framework");
-                foreach(Computer computerEf in computersEf)
+                string computersJson = File.ReadAllText("Computers.json");
+                Console.WriteLine(computersJson);
+
+                JsonSerializerOptions options = new JsonSerializerOptions()
                 {
-                                    {
-                    Console.WriteLine("'" + computerEf.Motherboard +
-                        "','" + computerEf.HasWifi +
-                        "','" + computerEf.HasLTE +
-                        "','" + computerEf.ReleaseDate +
-                        "','" + computerEf.Price +
-                        "','" + computerEf.VideoCard);
+                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+                };
+                IEnumerable<Computer>? computers = JsonSerializer.Deserialize<IEnumerable<Computer>>(computersJson, options);
+
+                if (computers != null)
+                {
+                    foreach (Computer computer in computers)
+                    {
+                        Console.WriteLine(computer.Motherboard);
+                    }
                 }
-                }
-            }
+        }
     }
 }
